@@ -3,15 +3,12 @@
 import dataset
 import os
 import TransFM
-import FM
-import PRME_FM
-import HRM_FM
 import sys
 import argparse
 import tensorflow as tf
 
 # config
-filename        = 'ratings.csv' 
+filename        = '../data/MovieLens100k/ratings.csv' 
 model           = 'TransFM'  
 features        = 'none' 
 features_file   = 'none' 
@@ -118,12 +115,6 @@ def parse_args( filename,     model,            features,       features_file,  
 def train_transrec(dataset, args):
     if args.model == 'TransFM':
         model = TransFM.TransFM(dataset, args)
-    elif args.model == 'FM':
-        model = FM.FM(dataset, args)
-    elif args.model == 'PRME-FM':
-        model = PRME_FM.PRME_FM(dataset, args)
-    elif args.model == 'HRM-FM':
-        model = HRM_FM.HRM_FM(dataset, args)
 
     val_auc, test_auc,  var_emb_factors, var_trans_factors, g = model.train()
 

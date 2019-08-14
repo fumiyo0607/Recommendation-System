@@ -1,2 +1,4 @@
 *.DS_Store
 MovieLens100k/
+__pycache__/
+.ipynb_checkpoints/

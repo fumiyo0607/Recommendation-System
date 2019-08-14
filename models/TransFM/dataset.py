@@ -15,7 +15,6 @@ class Dataset:
         df = pd.read_csv(path, sep=',', header=None,
                 names=['user_id', 'item_id', 'rating', 'time'], index_col=False)
 
-        # df = df[1:3000]
 
         print('First pass')
         print('\tnum_users = ' + str(len(df['user_id'].unique())))
