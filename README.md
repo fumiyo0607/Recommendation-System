@@ -17,7 +17,7 @@ RAM 30G以上
 
 1. データセットを取得しそれぞれのorgディレクトリへ格納   
 それぞれ以下のURLより取得   
-MovieLens100k:    
+MovieLens100k:https://www.kaggle.com/rajmehra03/movielens100k  
 MovieLens20M:     
 
 
