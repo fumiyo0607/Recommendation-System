@@ -64,21 +64,21 @@ class Dataset:
         print('\tnum_items = ' + str(len(df['item_id'].unique())))
         print('\tdf_shape  = ' + str(df.shape))
 
-        user_counts = df['user_id'].value_counts()
-        print('Collected user counts...')
-        item_counts = df['item_id'].value_counts()
-        print('Collected item counts...')
+        # user_counts = df['user_id'].value_counts()
+        # print('Collected user counts...')
+        # item_counts = df['item_id'].value_counts()
+        # print('Collected item counts...')
 
         # Filter based on user and item counts
-        df = df[df.apply(
-                lambda x: user_counts[x['user_id']] >= user_min, axis=1)]
-        print('User filtering done...')
+        # df = df[df.apply(
+        #         lambda x: user_counts[x['user_id']] >= user_min, axis=1)]
+        # print('User filtering done...')
 
-        df = df[df.apply(
-                lambda x: item_counts[x['item_id']] >= item_min, axis=1)]
-        print('Item filtering done...')
+        # df = df[df.apply(
+        #         lambda x: item_counts[x['item_id']] >= item_min, axis=1)]
+        # print('Item filtering done...')
 
-        print('Second pass')
+        # print('Second pass')
         print('\tnum_users = ' + str(len(df['user_id'].unique())))
         print('\tnum_items = ' + str(len(df['item_id'].unique())))
         print('\tdf_shape  = ' + str(df.shape))
@@ -95,20 +95,6 @@ class Dataset:
         df = df.sort_values('time')
         # indexを振り直す
         df = df.reset_index(drop=True)
-
-        # # Filter based on user and item counts
-        # df = df[df.apply(
-        #     lambda x: user_counts[x['user_id']] >= user_min, axis=1)]
-        # print('User filtering done...')
-
-        # df = df[df.apply(
-        #     lambda x: item_counts[x['item_id']] >= item_min, axis=1)]
-        # print('Item filtering done...')
-
-        # print('Second pass')
-        # print('\tnum_users = ' + str(len(df['user_id'].unique())))
-        # print('\tnum_items = ' + str(len(df['item_id'].unique())))
-        # print('\tdf_shape  = ' + str(df.shape))
 
         self.usernum = len(df['user_id'].unique())
         self.itemnum = len(df['item_id'].unique())
