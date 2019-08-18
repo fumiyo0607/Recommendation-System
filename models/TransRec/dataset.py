@@ -5,6 +5,13 @@ from collections import defaultdict
 import copy
 import os
 
+
+# TODO:
+# ・movie_id のインデックスを振り直す
+# ・movie_idのユニークな配列を作成する
+# ・dictを作成して，dfのmovie_idを振り直す
+# ・考察したいので，moviesとの紐付けが可能なように中間テーブルを出力する
+
 class Dataset:
 
     def __init__(self, user_min=2, item_min=2):
@@ -13,6 +20,45 @@ class Dataset:
         filename     = '../../data/' + dataset_name + '/ratings.csv'
         df = pd.read_csv(filename, sep=',', header=None,
                 names=['user_id', 'item_id', 'rating', 'time'], index_col=False)
+
+        # item_idを振り直す
+
+        # ユニークなitem_idのリストを作成
+        item_list = df['item_id']
+        item_list = item_list.sort_values()
+        item_list = item_list.reset_index(drop=True)
+        item_list = item_list.unique()
+
+        # マスタとなるdictを作成
+        item_idex_master = {}
+
+        for i in range(len(item_list)):
+            item_idex_master[ item_list[i]] = i
+
+        # 元のitem_id
+        item_id= list(item_idex_master.keys())
+        # idxを振り直した後のitem_is
+        fixed_item_idx =  list(item_idex_master.values())
+
+        df_item_ids_master = pd.DataFrame(
+            data = {
+                'item_id' : item_id,
+                'fixed_item_idx' : fixed_item_idx
+            },
+            columns=['item_id','fixed_item_idx']
+        )
+
+        df_item_ids_master.to_csv('df_item_ids_master.csv')
+
+        # dfのitem_idを振り直す
+        target_item_list = df['item_id']
+        fixed_item_ids = []
+
+        for item_id in target_item_list:
+            fixed_item_ids.append(item_idex_master[item_id])
+
+        df['item_id'] = fixed_item_ids
+        print('Fixed item_id...')
 
         print('\tnum_users = ' + str(len(df['user_id'].unique())))
         print('\tnum_items = ' + str(len(df['item_id'].unique())))
@@ -50,23 +96,23 @@ class Dataset:
         # indexを振り直す
         df = df.reset_index(drop=True)
 
-        # Filter based on user and item counts
-        df = df[df.apply(
-            lambda x: user_counts[x['user_id']] >= user_min, axis=1)]
-        print('User filtering done...')
+        # # Filter based on user and item counts
+        # df = df[df.apply(
+        #     lambda x: user_counts[x['user_id']] >= user_min, axis=1)]
+        # print('User filtering done...')
 
-        df = df[df.apply(
-            lambda x: item_counts[x['item_id']] >= item_min, axis=1)]
-        print('Item filtering done...')
+        # df = df[df.apply(
+        #     lambda x: item_counts[x['item_id']] >= item_min, axis=1)]
+        # print('Item filtering done...')
 
-        print('Second pass')
-        print('\tnum_users = ' + str(len(df['user_id'].unique())))
-        print('\tnum_items = ' + str(len(df['item_id'].unique())))
-        print('\tdf_shape  = ' + str(df.shape))
+        # print('Second pass')
+        # print('\tnum_users = ' + str(len(df['user_id'].unique())))
+        # print('\tnum_items = ' + str(len(df['item_id'].unique())))
+        # print('\tdf_shape  = ' + str(df.shape))
 
         self.usernum = len(df['user_id'].unique())
-        # self.itemnum = len(df['item_id'].unique())
-        self.itemnum = df['item_id'].max()
+        self.itemnum = len(df['item_id'].unique())
+        # self.itemnum = df['item_id'].max()
 
 
         # Normalize temporal values
