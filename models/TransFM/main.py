@@ -3,6 +3,7 @@
 import dataset
 import os
 import TransFM
+import TransFM_minus_d
 import sys
 import argparse
 import tensorflow as tf
@@ -37,7 +38,7 @@ def parse_args( filename,     model,            features,       features_file,  
         required=True)
     parser.add_argument('--model',
         help='Model to run.',
-        choices=['TransFM', 'FM', 'PRME-FM', 'HRM-FM'],
+        choices=['TransFM', 'FM', 'PRME-FM', 'HRM-FM', 'TransFM_minus_d'],
         required=True)
     parser.add_argument('--features',
         help='Which features to include.',
@@ -115,6 +116,9 @@ def parse_args( filename,     model,            features,       features_file,  
 def train_transrec(dataset, args):
     if args.model == 'TransFM':
         model = TransFM.TransFM(dataset, args)
+
+    elif args.model == 'TransFM_minus_d':
+        model = TransFM_minus_d.TransFM_minus_dS(dataset, args)
 
     val_auc, test_auc,  var_emb_factors, var_trans_factors, g = model.train()
 
