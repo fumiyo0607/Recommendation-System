@@ -118,7 +118,7 @@ def train_transrec(dataset, args):
         model = TransFM.TransFM(dataset, args)
 
     elif args.model == 'TransFM_minus_d':
-        model = TransFM_minus_d.TransFM_minus_dS(dataset, args)
+        model = TransFM_minus_d.TransFM_minus_d(dataset, args)
 
     val_auc, test_auc,  var_emb_factors, var_trans_factors, g = model.train()
 
