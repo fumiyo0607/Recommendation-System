@@ -23,6 +23,3 @@ MovieLens20M:https://www.kaggle.com/grouplens/movielens-20m-dataset
 |手法|ファイル名|論文|
 |:--|:--|:--|
 |Factorization Machines|FactorizationMachines.ipynb|[Factorization Machines](https://www.csie.ntu.edu.tw/~b97053/paper/Rendle2010FM.pdf)|
-
-## 引用サイト
- - [[論文メモ]Wide And Deep Learning](https://qiita.com/michi_wkwk/items/fc99dbdd7bdf4bf2c003#%E5%AE%9F%E8%A3%85)
