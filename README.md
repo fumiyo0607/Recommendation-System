@@ -20,7 +20,7 @@ MovieLens20M:https://www.kaggle.com/grouplens/movielens-20m-dataset
 
 ## 扱っている手法と記事
 
-|手法|ディレクトリ|論文|
+|手法|ファイル名|論文|
 |:--|:--|:--|
 |Translation-based Factorization Machines for Sequential Recommendation|TransFM.ipynb|[TransFM](https://cseweb.ucsd.edu/~jmcauley/pdfs/recsys18a.pdf)|
 |Translation-based Recommendation|TransRec.ipynb|[TransRec](https://www.ijcai.org/proceedings/2018/0734.pdf)|
