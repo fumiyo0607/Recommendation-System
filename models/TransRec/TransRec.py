@@ -1,30 +1,19 @@
-import dataset
+# -*- coding: utf-8 -*-
+
+# TODO:
+# ・movie_les のデータで分析を行えるようにする
+# ・おそらく，TransFMのデータ整形のスクリプトがそのまま使えると思うのでそれを利用する
+# ・できたらディレクトリとか整理して，プロジェクトもまとめたい感はある
+
 import numpy as np
-import pandas as pd
 import random
 from math import exp
 from math import log
 import matplotlib.pyplot as plt
 
-
-# # config
-# dataset_name = 'MovieLens100k'
-# filename        = '../../data/' + dataset_name + '/ratings.csv'
-
-# df = pd.read_csv(filename, sep=',', header=None,
-#                 names=['user_id', 'item_id', 'rating', 'time'], index_col=False)
-
-# usernum = len(df['user_id'].unique())
-# itemnum = len(df['item_id'].unique())
-
-dataset = dataset.Dataset()
-user_train,user_validation,user_test, usernum, itemnum = dataset.fetch_shaping_dataset()
-
-# # 出力したnpyファイルを読み込む
-# user_train      = np.load('user_train.npy')
-# user_validation = np.load('user_validation.npy')
-# user_test       = np.load('user_test.npy')
-
+dataset_name = 'Automotive'
+dataset = np.load('../data/'+dataset_name+'Partitioned.npy')
+[user_train,user_validation,user_test, usernum,itemnum] = dataset
 
 item_successor = [[] for it in range(itemnum)]
 for user in user_train:
@@ -202,8 +191,8 @@ plt.plot(auc_rec_valid)
 plt.figure()
 plt.plot(auc_rec_test)
 
-np.save("itemVector.npy",H)
-np.save("userVector.npy",R)
+#np.save("itemVector.npy",H)
+#np.save("userVector.npy",R)
 
 R = np.load("userVector.npy")
 
